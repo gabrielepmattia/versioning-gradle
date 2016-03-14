@@ -1,0 +1,21 @@
+ext {
+    buildVersionCode = {
+        // Increments the versionName
+        def (String major, String minor, String patch) = myVersionName.toLowerCase().replaceAll('-', '').tokenize('.')
+        Integer patch_int = patch.toInteger() + 1
+        myVersionName = major + "." + minor + "." + patch_int
+
+        // Increments the versionCode
+        myVersionCode_int = myVersionCode.toInteger() + 1
+
+        // Write settings
+        def versionPropsFile = file("../gradle.properties")
+        def Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionPropsFile))
+        versionProps['myVersionName'] = myVersionName.toString()
+        versionProps['myVersionCode'] = myVersionCode_int.toString()
+        versionProps.store(versionPropsFile.newWriter(), null)
+
+        return myVersionCode_int
+    }
+}
