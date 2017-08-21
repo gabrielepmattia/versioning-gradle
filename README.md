@@ -20,11 +20,18 @@ and in your `defaultConfig` scope
         applicationId "com.company.yourappid"
         minSdkVersion ..
         targetSdkVersion ..
-        versionCode newVersionCode.toInteger()
-        versionName newVersionName
-        project.setVersion(newVersionName)
-        println 'Currently building version ' + project.getVersion() + " build " + newVersionCode
+        versionCode myVersionCode.toInteger()
+        versionName myVersionName
     }
 ```
+And at the bottom, if you want for example to increase the version after a beta release build, you have to type:
+
+```
+tasks.matching { task -> task.name == "assembleBetaRelease" }.all { task ->
+    task.dependsOn updateVersion
+}
+
+```
+in order to hook `assembleBetaRelease` task for example
 
 Whenever you will build your `app` configuration, version (that is written `gradle.properties`) will be increased.

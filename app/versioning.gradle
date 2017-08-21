@@ -19,3 +19,9 @@ ext {
         return myVersionCode_int
     }
 }
+
+task updateVersion << {
+    // Calculate version
+    buildVersionCode()
+    println 'Version increased to ' + myVersionName + " build " + myVersionCode
+}
