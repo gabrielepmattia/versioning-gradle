@@ -20,8 +20,10 @@ ext {
     }
 }
 
-task updateVersion << {
-    // Calculate version
-    buildVersionCode()
-    println 'Version increased to ' + myVersionName + " build " + myVersionCode
+task updateVersion {
+    doLast {
+        // Calculate version
+        buildVersionCode()
+        println 'Version increased to ' + myVersionName + " build " + myVersionCode
+    }
 }
