@@ -6,24 +6,25 @@ ext {
         myVersionName = major + "." + minor + "." + patch_int
 
         // Increments the versionCode
-        myVersionCode_int = myVersionCode.toInteger() + 1
+        myVersionCode = (myVersionCode.toInteger() + 1).toString()
 
         // Write settings
         def versionPropsFile = file("../gradle.properties")
         def Properties versionProps = new Properties()
         versionProps.load(new FileInputStream(versionPropsFile))
-        versionProps['myVersionName'] = myVersionName.toString()
-        versionProps['myVersionCode'] = myVersionCode_int.toString()
+        versionProps['myVersionName'] = myVersionName
+        versionProps['myVersionCode'] = myVersionCode
         versionProps.store(versionPropsFile.newWriter(), null)
-
-        return myVersionCode_int
     }
 }
 
 task updateVersion {
     doLast {
-        // Calculate version
+        println '\n################## Version Update ##################'
+        println '# From version:\t ' + myVersionName + ' (' + myVersionCode + ')'
         buildVersionCode()
-        println 'Version increased to ' + myVersionName + " build " + myVersionCode
+        println '# To version:\t ' + myVersionName + ' (' + myVersionCode + ')'
+        println '####################################################'
+
     }
 }
