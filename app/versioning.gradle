@@ -28,3 +28,8 @@ task updateVersion {
 
     }
 }
+
+configure(updateVersion) {
+    group = 'versioning'
+    description = 'Manage your project version'
+}
